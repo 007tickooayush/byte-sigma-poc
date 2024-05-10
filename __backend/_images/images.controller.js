@@ -62,7 +62,15 @@ const uploadFileServer = async (req, res) => {
             }
         }
 
-        res.json({ message: response.message, file: req.file });
+        const fileResp = {
+            originalname: req.file.originalname,
+            encoding: req.file.encoding,
+            mimetype: req.file.mimetype,
+            filename: req.file.filename,
+            size: req.file.size,
+            accessLink: cloudUrl
+        };
+        res.json({ message: response.message, file: fileResp });
     } catch (err) {
         console.log('err :>> ', err);
         res.status(500).send({ message: 'Internal Server error occured' });
