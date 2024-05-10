@@ -34,14 +34,12 @@ const uploadFileServer = async (req, res) => {
 
         const cloudUrl = `${process.env.CLOUD_URL}/${process.env.IMAGES_PATH}/${req.file.originalname}`;
 
+        // only save the requierd fields
         const createImage = Image.create({
-            fieldname: req.file.fieldname,
             originalname: req.file.originalname,
             encoding: req.file.encoding,
             mimetype: req.file.mimetype,
-            destination: req.file.destination,
             filename: req.file.filename,
-            path: req.file.path,
             size: req.file.size,
             accessLink: cloudUrl
         });
@@ -79,8 +77,39 @@ const uploadFileServer = async (req, res) => {
     }
 }
 
+/**
+ * 
+ * @param {express.Request} req request object
+ * @param {express.Response} res response object
+ */
+const getImagesData = async (req, res) => {
+    const method = 'getImagesData';
+    console.time(method);
+    try {
+        const { page, limit } = req.query;
+        const pageNumber = parseInt(page) || 1;
+        const limitNumber = parseInt(limit) || 10;
 
+        const images = await Image.find().sort({ created_at: -1 }).skip((pageNumber - 1) * limitNumber).limit(limitNumber);
+        const count = await Image.countDocuments();
+
+        const pageObj = {
+            total: count,
+            nextPage: count > (pageNumber * limitNumber) ? pageNumber + 1 : null,
+            prevPage: pageNumber > 1 ? pageNumber - 1 : null,
+            currPage: pageNumber
+        }
+
+        res.json({ message: 'fetched data from server', images, page: pageObj });
+    } catch (error) {
+        console.error('Error getting images:', error);
+        res.status(500).send({ message: 'Internal Server error occured' });
+    } finally {
+        console.timeEnd(method);
+    }
+};
 
 module.exports = {
-    uploadFileServer
+    uploadFileServer,
+    getImagesData
 };

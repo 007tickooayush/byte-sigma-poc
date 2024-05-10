@@ -12,9 +12,9 @@ require('dotenv').config({ path: './.env.cloud'});
  * @param {express.NextFunction} next express next function
  */
 const authenticationValidator = async (req, res, next) => {
-    console.log('req.headers :>> ', req.headers);
-    console.log('1 req.params :>> ', req.params);
-    console.log('process.env.ACCESS_TOKEN_SECRET :>> ', process.env.ACCESS_TOKEN_SECRET);
+    // console.log('req.headers :>> ', req.headers);
+    // console.log('1 req.params :>> ', req.params);
+    // console.log('process.env.ACCESS_TOKEN_SECRET :>> ', process.env.ACCESS_TOKEN_SECRET);
     if (req.headers['authorization'] === process.env.ACCESS_TOKEN_SECRET) {
         next();
     } else {
@@ -31,7 +31,7 @@ const authenticationValidator = async (req, res, next) => {
 const getFileCloud = (req, res) => {
     const method = 'getFileCloud';
     console.time(method);
-    console.log('req.params :>> ', req.params);
+    // console.log('req.params :>> ', req.params);
     try {
         if (!req.params.filename) {
             throw new Error('No filename provided');

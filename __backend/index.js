@@ -5,9 +5,9 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-require('dotenv').config({ path: './.env.backend'});
+require('dotenv').config({ path: './.env.backend' });
 const { connectDB } = require('./_utils/db');
-const { uploadFileServer } = require('./_images/images.controller');
+const { uploadFileServer, getImagesData } = require('./_images/images.controller');
 
 
 const multer = require('multer');
@@ -36,14 +36,20 @@ if (!fs.existsSync(uploadsDirectory)) {
 
 
 const PORT = process.env.SERVER_PORT || 3001;
+console.log('[].concat(JSON.parse(process.env.ALLOWED_URLS)) :>> ', [].concat(JSON.parse(process.env.ALLOWED_URLS)));
+/**
+ * @type {cors.CorsOptions}
+ */
 const corsOptions = {
-    origin: [].concat(JSON.parse(process.env.ALLOWED_URLS)) ?? ['http://localhost:3002', 'http:localhost:3001/'],
+    // origin: [].concat(JSON.parse(process.env.ALLOWED_URLS)) ?? ['http://localhost:3002', 'http://localhost:4000'],
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
 };
 
-app.use(cors({...corsOptions}));
+app.use(cors(corsOptions));
 app.post('/upload-file', upload.single('file'), uploadFileServer);
+app.get('/images', getImagesData);
 
 connectDB().then(() => {
     console.log('Database connected');

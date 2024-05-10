@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const imageSchema = new mongoose.Schema({
-    fieldname: {
-        type: String,
-        required: true
-    },
     originalname: {
         type: String,
         required: true
@@ -17,27 +13,18 @@ const imageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    destination: {
-        type: String,
-        required: true
-    },
     filename: {
         type: String,
         required: true
     },
-    path: {
-        type: String,
-        required: true
-    },
     size: {
-        type: Number,
+        type: String,
         required: true
     },
     accessLink: {
         type: String,
         required: true
-    }
-
+    },
     // OPTIONAL: to store data in the mongo database, but file size should not exceed 16 mb
     // data: {
     //     type: Buffer,
