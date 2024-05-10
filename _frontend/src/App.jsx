@@ -25,16 +25,28 @@ const App = () => {
 		totalPages: 1
 	});
 
-	// useEffect(() => {
-		
-	// 	console.log('limit :>> ', limit);
-	// 	console.log('page :>> ', page);
-	// }, [page]);
+	useEffect(() => {
+		getImages(page, limit)
+			.then((data) => {
+				setImages(data.images);
+				setAllPageDetails({
+					currPage: data.page.currPage,
+					nextPage: data.page.nextPage,
+					prevPage: data.page.prevPage,
+					total: data.page.total,
+					totalPages: data.page.totalPages
+				});
+				// setLimit(data.page.limit);
+				setPage(data.page.currPage);
+			}).catch((err) => {
+				console.log('err :>> ', err);
+			});
+	}, [page]);
 
 	return (
 		<PageContext.Provider value={{ page, setPage, images, setImages, limit, setLimit, allPageDetails, setAllPageDetails }}>
 			<Box style={{ height: '100%' }}>
-				<NavBar allPageDetails={allPageDetails} page={page} />
+				<NavBar />
 				<VStack>
 					<Box>
 						<ImagesList />

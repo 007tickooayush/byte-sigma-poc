@@ -8,26 +8,12 @@ const NavBar = () => {
 	const { allPageDetails, setAllPageDetails, setPage, page, setImages, limit, setLimit } = useContext(PageContext);
 
 	const handlePrevPage = () => {
-		setPage(page - 1);
+		setPage(page => page - 1);
 	};
 
 	const handleNextPage = () => {
-		setPage(page + 1);
+		setPage(page => page + 1);
 	};
-
-	useEffect(() => {
-		getImages(page, limit).then((data) => {
-			// console.log('data :>> ', data);
-			console.log('data.images :>> ', data.images);
-			setImages(data.images);
-			setAllPageDetails(data.page);
-			setPage(data.page.currPage);
-			setLimit(data.page.limit);
-			console.log('data.page :>> ', data.page);
-		}).catch((err) => {
-			console.log('err :>> ', err);
-		});
-	}, [page]);
 
 	return (
 		<Flex

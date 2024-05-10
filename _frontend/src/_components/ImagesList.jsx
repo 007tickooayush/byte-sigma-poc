@@ -4,7 +4,7 @@ import ImageCard from './ImageCard';
 import { PageContext } from '../_utils/context';
 
 const ImagesList = () => {
-    const { images } = useContext(PageContext);
+    const { page, images } = useContext(PageContext);
     return (
         <Center m={10}>
             {

@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Image, Text, Center } from '@chakra-ui/react'
 import { accessImage } from '../_utils/api';
+import { PageContext } from '../_utils/context';
 
 const ImageCard = ({ imageObj }) => {
+
+    const {page} = useContext(PageContext);
+
     const [imageUrl, setImageUrl] = useState('');
     const [cleanImageName, setCleanImageName] = useState('');
 
@@ -17,14 +21,13 @@ const ImageCard = ({ imageObj }) => {
             imageName.splice(-1, 1);
             setCleanImageName(imageName.join(' '));
         });
-
-
+        
         // cleanup the object url
         return () => {
             URL.revokeObjectURL(imageUrl);
         };
 
-    }, []);
+    }, [page]);
 
 
     if (!imageUrl) {

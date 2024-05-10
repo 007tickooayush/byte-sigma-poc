@@ -9,6 +9,7 @@ export const authToken = import.meta.env.VITE_AUTH_TOKEN_CLOUD;
  */
 export const getImages = async (page, limit) => {
     try {
+        console.log('page,limit :>> ', page,limit);
         const response = await fetch(`${url}images?page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
