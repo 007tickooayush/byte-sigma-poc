@@ -1,8 +1,11 @@
 import { Button, Center, Flex, Input } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { uploadImage, url } from '../_utils/api';
+import { PageContext } from '../_utils/context';
 
-const FormUpload = ({ setImages, images }) => {
+const FormUpload = () => {
+
+    const { setImages, images } = useContext(PageContext);
 
     /**
      * 

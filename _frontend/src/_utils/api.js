@@ -15,7 +15,9 @@ export const getImages = async (page, limit) => {
                 'Content-Type': 'application/json'
             }
         });
-        return response.json();
+        const data = await response.json();
+        console.log('data', data)
+        return data;
     } catch (err) {
         console.log('getImages err :>> ', err);
     }
