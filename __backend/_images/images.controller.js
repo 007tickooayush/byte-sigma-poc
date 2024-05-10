@@ -3,6 +3,7 @@ const Image = require('./files.schema');
 const fs = require('fs');
 const { default: mongoose, MongooseError, Mongoose } = require('mongoose');
 const { deleteFileAfterUpload } = require('../_utils/helper');
+require('dotenv').config({ path: './.env.backend' });
 /**
  * 
  * @param {express.Request} req requset object
@@ -31,7 +32,7 @@ const uploadFileServer = async (req, res) => {
             },
         }).then(response => response.json());
 
-        const cloudUrl = `${process.env.CLOUD_URL}/${req.file.originalname}`;
+        const cloudUrl = `${process.env.CLOUD_URL}/${process.env.IMAGES_PATH}/${req.file.originalname}`;
 
         const createImage = Image.create({
             fieldname: req.file.fieldname,

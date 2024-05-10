@@ -67,6 +67,7 @@ const uploadValidationAfter = async (req, res, next) => {
         if (!req.file) {
             throw new Error('No file uploaded');
         }
+        console.log('resp json =>',{ file: req.file, message: 'File uploaded successfully!' });
         res.json({ file: req.file, message: 'File uploaded successfully!' });
     } catch (err) {
         console.log('cloud err :>> ', err);
