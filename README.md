@@ -34,5 +34,7 @@ An image upload and gallery project with local pseudo cloud mechanism with authe
 # Sample Screenshot:
 ![Sample Screenshot](<Screenshot from 2024-05-10 15-09-55.png>)
 
-
+# Sample gif 
+(Please note the current directories!) 
+![Sample GIF](<Screencast from 10-05-24 03_16_43 PM IST.gif>)
 # *NOTE: Since there is local storage innvolved so entire DB is required to be cleared as the cloud-server instance is not deployed on an actual cloud computing system.*
