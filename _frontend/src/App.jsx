@@ -24,6 +24,8 @@ const App = () => {
 			// console.log('data.images :>> ', data.images);
 			setImages(data.images);
 			setAllPageDetails(data.page);
+			setPage(data.page.currPage);
+			setLimit(data.page.limit);
 			console.log('data.page :>> ', data.page);
 		}).catch((err) => {
 			console.log('err :>> ', err);
@@ -44,7 +46,7 @@ const App = () => {
 					</Center>
 				</Box>
 				<Box>
-					<FormUpload />
+					<FormUpload setImages={setImages}/>
 				</Box>
 			</VStack>
 		</Box>

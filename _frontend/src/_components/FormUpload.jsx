@@ -2,7 +2,7 @@ import { Button, Center, Flex, Input } from '@chakra-ui/react'
 import React from 'react'
 import { uploadImage, url } from '../_utils/api';
 
-const FormUpload = () => {
+const FormUpload = ({ setImages }) => {
 
     /**
      * 
@@ -27,12 +27,12 @@ const FormUpload = () => {
         // });
 
         uploadImage(formData)
-        .then((data) => {
-            console.log('data :>> ', data);
-
-        }).catch((err) => {
-            console.log('err :>> ', err);
-        });
+            .then((data) => {
+                console.log('data :>> ', data);
+                setImages((prevImages) => [data.file, ...prevImages]);
+            }).catch((err) => {
+                console.log('err :>> ', err);
+            });
 
     }
     return (
@@ -53,8 +53,8 @@ const FormUpload = () => {
                     p={2}
                     mr={2}
                 />
-                <Button 
-                    type='submit' 
+                <Button
+                    type='submit'
                     size='md'
                     border='2px'
                     colorScheme='blue'
