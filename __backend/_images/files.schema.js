@@ -51,8 +51,9 @@ const imageSchema = new mongoose.Schema({
 });
 
 // unique index on originalname field
-imageSchema.index({ originalname: -1 }, { unique: true });
-
+imageSchema.index({ originalname: 1 }, { unique: true });
+imageSchema.index({ accessLink: 1 }, { unique: true });
+imageSchema.index({ created_at: -1 });
 const Image = mongoose.model('Image', imageSchema, 'images');
 
 module.exports = Image;
