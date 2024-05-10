@@ -5,7 +5,7 @@
 
 ## Description
 
-
+An image upload and gallery project with local pseudo cloud mechanism with authenticated access for files via the server to client, made using MERN Stack
 
 ## Installation
 
