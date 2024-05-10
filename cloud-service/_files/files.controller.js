@@ -13,6 +13,7 @@ require('dotenv').config({ path: './.env.cloud'});
  */
 const authenticationValidator = async (req, res, next) => {
     console.log('req.headers :>> ', req.headers);
+    console.log('1 req.params :>> ', req.params);
     console.log('process.env.ACCESS_TOKEN_SECRET :>> ', process.env.ACCESS_TOKEN_SECRET);
     if (req.headers['authorization'] === process.env.ACCESS_TOKEN_SECRET) {
         next();
@@ -30,12 +31,13 @@ const authenticationValidator = async (req, res, next) => {
 const getFileCloud = (req, res) => {
     const method = 'getFileCloud';
     console.time(method);
+    console.log('req.params :>> ', req.params);
     try {
-        if (!req.query.filename) {
+        if (!req.params.filename) {
             throw new Error('No filename provided');
         }
 
-        const { filename } = req.query;
+        const { filename } = req.params;
         const filePath = path.join(uploadsDirectory, filename);
         if (fs.existsSync(filePath)) {
             res.sendFile(filePath);
@@ -61,7 +63,7 @@ const uploadValidationAfter = async (req, res, next) => {
     const method = 'BLOCK:uploadValidationAfter';
     console.time(method);
     try {
-        console.log(req.file);
+        // console.log(req.file);
         if (!req.file) {
             throw new Error('No file uploaded');
         }

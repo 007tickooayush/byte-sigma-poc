@@ -1,10 +1,14 @@
 const fs = require('fs');
 
-const deleteFileAfterUpload = async (file) => {
+/**
+ * 
+ * @param {string} filePath file path
+ */
+const deleteFileAfterUpload = async (filePath) => {
     const method = 'deleteFileAfterUpload';
     console.time(method);
     try {
-        fs.unlinkSync(file.path);
+        fs.unlinkSync(filePath);
     }
     catch (err) {
         console.error('Error deleting file:', err);

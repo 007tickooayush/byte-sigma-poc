@@ -45,7 +45,7 @@ if (!fs.existsSync(uploadsDirectory)) {
 
 app.use('/images', authenticationValidator, express.static(uploadsDirectory));
 app.post('/upload', authenticationValidator, upload.single('file'), uploadValidationAfter);
-app.get('/image', authenticationValidator, getFileCloud);
+app.get('/image/:filename', authenticationValidator, getFileCloud);
 
 server.listen(PORT, () => {
     console.log(`Pseudo Cloud Service running on port ${PORT}`);

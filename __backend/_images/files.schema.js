@@ -32,6 +32,10 @@ const imageSchema = new mongoose.Schema({
     size: {
         type: Number,
         required: true
+    },
+    accessLink: {
+        type: String,
+        required: true
     }
 
     // OPTIONAL: to store data in the mongo database, but file size should not exceed 16 mb
