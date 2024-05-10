@@ -97,7 +97,8 @@ const getImagesData = async (req, res) => {
             total: count,
             nextPage: count > (pageNumber * limitNumber) ? pageNumber + 1 : null,
             prevPage: pageNumber > 1 ? pageNumber - 1 : null,
-            currPage: pageNumber
+            currPage: pageNumber,
+            totalPages: Math.ceil(count / limitNumber)
         }
 
         res.json({ message: 'fetched data from server', images, page: pageObj });

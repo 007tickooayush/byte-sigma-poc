@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
-require('dotenv').config({ path: './.env.cloud'});
+require('dotenv').config({ path: './.env.cloud' });
 
 
 const multer = require('multer');
@@ -25,16 +25,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage: storage,
-    
+
 });
 
 const PORT = process.env.SERVER_PORT || 4000;
+// console.log('[].concat(JSON.parse(process.env.ALLOWED_URLS)) :>> ', [].concat(JSON.parse(process.env.ALLOWED_URLS)));
+/**
+ * @type {cors.CorsOptions}
+ */
 const corsOptions = {
-    origin: [].concat(JSON.parse(process.env.ALLOWED_URLS)) ?? ['http://localhost:3002', 'http:localhost:3001/'],
+    origin: ['http://localhost:3002', 'http://localhost:3001'],
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
-app.use(cors({ ...corsOptions }));
+app.use(cors(corsOptions));
 
 // Create the uploads directory if it doesn't exist
 // const uploadsDirectory = path.join(__dirname, 'uploads');
@@ -45,7 +49,7 @@ if (!fs.existsSync(uploadsDirectory)) {
 
 app.use('/images', authenticationValidator, express.static(uploadsDirectory));
 app.post('/upload', authenticationValidator, upload.single('file'), uploadValidationAfter);
-app.get('/image/:filename', authenticationValidator, getFileCloud);
+app.get('/image/:filename', authenticationValidator, getFileCloud); 
 
 server.listen(PORT, () => {
     console.log(`Pseudo Cloud Service running on port ${PORT}`);

@@ -36,7 +36,7 @@ if (!fs.existsSync(uploadsDirectory)) {
 
 
 const PORT = process.env.SERVER_PORT || 3001;
-console.log('[].concat(JSON.parse(process.env.ALLOWED_URLS)) :>> ', [].concat(JSON.parse(process.env.ALLOWED_URLS)));
+// console.log('[].concat(JSON.parse(process.env.ALLOWED_URLS)) :>> ', [].concat(JSON.parse(process.env.ALLOWED_URLS)));
 /**
  * @type {cors.CorsOptions}
  */
@@ -44,7 +44,7 @@ const corsOptions = {
     // origin: [].concat(JSON.parse(process.env.ALLOWED_URLS)) ?? ['http://localhost:3002', 'http://localhost:4000'],
     origin: '*',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
+    // allowedHeaders: ['Content-Type']
 };
 
 app.use(cors(corsOptions));
