@@ -2,7 +2,7 @@ import { Button, Center, Flex, Input } from '@chakra-ui/react'
 import React from 'react'
 import { uploadImage, url } from '../_utils/api';
 
-const FormUpload = ({ setImages }) => {
+const FormUpload = ({ setImages, images }) => {
 
     /**
      * 
@@ -28,8 +28,10 @@ const FormUpload = ({ setImages }) => {
 
         uploadImage(formData)
             .then((data) => {
+                window.location.reload();
                 console.log('data :>> ', data);
-                setImages((prevImages) => [data.file, ...prevImages]);
+                // setImages(images.unshift(data.file));
+                // setImages([data.file, ...images]);
             }).catch((err) => {
                 console.log('err :>> ', err);
             });

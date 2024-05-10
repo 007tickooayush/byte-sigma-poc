@@ -46,7 +46,7 @@ const App = () => {
 					</Center>
 				</Box>
 				<Box>
-					<FormUpload setImages={setImages}/>
+					<FormUpload setImages={setImages} images={images} />
 				</Box>
 			</VStack>
 		</Box>
