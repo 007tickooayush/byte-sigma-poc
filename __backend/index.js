@@ -13,6 +13,7 @@ const { uploadFileServer, getImagesData } = require('./_images/images.controller
 const multer = require('multer');
 const fs = require('fs');
 const { imageFileFilter } = require('./_utils/fileFilter');
+const Image = require('./_images/files.schema');
 const uploadsDirectory = path.join(__dirname, 'uploads/');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -54,8 +55,14 @@ app.get('/images', getImagesData);
 connectDB().then(() => {
     console.log('Database connected');
 }).then(() => {
-    server.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
+    // refreshing the database for each time server is active to clear the database
+    Image.deleteMany({}).then(() => {
+        console.log('Database cleared');
+        server.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    }).catch((error) => {
+        console.error('Database clearing error:', error);
     });
 }).catch((error) => {
     console.error('Database connection error:', error);

@@ -30,3 +30,9 @@ An image upload and gallery project with local pseudo cloud mechanism with authe
 - The `__backend` project should print the DB connection message.
 - The `cloud-service` project should be running before all projects.
 - For testing the project the person should have functional knowledge about javascript.
+
+# Sample Screenshot:
+![Sample Screenshot](<Screenshot from 2024-05-10 15-09-55.png>)
+
+
+# *NOTE: Since there is local storage innvolved so entire DB is required to be cleared as the cloud-server instance is not deployed on an actual cloud computing system.*
