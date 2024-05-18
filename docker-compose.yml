@@ -1,0 +1,52 @@
+version: '3'
+services:
+  bytesigma_backend:
+    image: bytesigma_backend
+    build: ./__backend
+    volumes:
+      - ./__backend:/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - bytesigma_cloud
+    env_file:
+      - ./__backend/backend.docker.env
+    # environment:
+    #   - SERVER_PORT=3001
+    #   - ALLOWED_URLS=["http://bytesigma_frontend:3002/","http://bytesigma_cloud:4000/"]
+    #   - MONGO_URI=mongodb://bytesigma_mongo:27017/bytesigma
+    #   - ACCESS_TOKEN_SECRET=cloud_service_token
+    #   - CLOUD_URL=http://bytesigma_cloud:4000
+    #   - IMAGES_PATH=images
+  bytesigma_frotnend:
+    image: bytesigma_frontend
+    build: ./_frontend
+    volumes:
+      - ./_frontend:/app
+    ports:
+      - "3002:3002"
+    depends_on:
+      - bytesigma_backend
+    env_file:
+      - ./_frontend/frontend.docker.env
+    # environment:
+    #   - VITE_IMAGE_URL=http://bytesigma_cloud:4000/image/
+    #   - VITE_SERVER_URL=http://bytesigma_backend:3001/
+    #   - VITE_AUTH_TOKEN_CLOUD=cloud_service_token
+  bytesigma_cloud:
+    image: bytesigma_cloud
+    build: ./cloud-service
+    volumes:
+      - ./cloud-service:/app
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./cloud-service/cloud.docker.env
+    # environment:
+    #   - SERVER_PORT=4000
+    #   - ALLOWED_URLS=["http://bytesigma_backend:3001/", "http://bytesigma_frotnend:3002/"]
+    #   - ACCESS_TOKEN_SECRET=cloud_service_token
+  bytesigma_mongo:
+    image: mongo
+    ports:
+      - "27021:27017"
